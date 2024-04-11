@@ -10,9 +10,22 @@ const RevisaoController = {
     get: async (req, res) => {
 
         try {
-            res.json( await Revisao.findById(req.params.id ))  
+           const {nome, turma, notas} = req.body;
+           
+           const media = notas.reduce((acc, nota ) => acc + nota, 0) / notas.length;
+
+           const alunoData = {
+            nome,
+            turma,
+            notas,
+            media
+           };
+
+           const aluno = await Aluno.create(alunoData);
+
+           res.status(200).json({ mensagem: 'Aluno registrado com sucesso!', aluno, media})
         } catch (error) {
-            res.status(404).json({error: 'Registro não encontrado'})
+            res.status(500).json({error: 'Erro! Aluno não salvo'})
         }
 
     },

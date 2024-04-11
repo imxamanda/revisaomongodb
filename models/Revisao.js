@@ -13,7 +13,7 @@ const revisaoSchema = mongoose.Schema({
         match: /^[a-zA-Z0-9À-ú\s.,#-]+$/,
         required: true
     },
-    nota: []
+    notas: []
 })
 
 const Revisao = mongoose.model(`Revisao`, revisaoSchema)
